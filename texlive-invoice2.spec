@@ -1,6 +1,6 @@
 Name:		texlive-invoice2
 Version:	46364
-Release:	1
+Release:	2
 Summary:	Intelligent invoices with LaTeX3
 Group:		Publishing
 URL:		http://www.ctan.org/tex-archive/macros/latex/contrib/invoice2
