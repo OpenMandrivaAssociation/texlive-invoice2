@@ -1,42 +1,30 @@
-Name:		texlive-invoice2
-Version:	67327
+%global tl_name invoice2
+%global tl_revision 67327
+
+Name:		texlive-%{tl_name}
+Version:	%{tl_revision}
 Release:	1
 Summary:	Intelligent invoices with LaTeX3
 Group:		Publishing
 URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/invoice2
 License:	gpl3+
-Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/invoice2.r%{version}.tar.xz
-Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/invoice2.doc.r%{version}.tar.xz
-Source2:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/invoice2.source.r%{version}.tar.xz
+Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/invoice2.r%{tl_revision}.tar.xz
+Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/invoice2.doc.r%{tl_revision}.tar.xz
+Source2:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/invoice2.source.r%{tl_revision}.tar.xz
 BuildArch:	noarch
-BuildRequires:	texlive-tlpkg
-Requires(pre):	texlive-tlpkg
-Requires(post):	texlive-kpathsea
+BuildSystem:	texlive
+Requires:	texlive(booktabs)
+Requires:	texlive(l3kernel)
+Requires:	texlive(l3packages)
+Requires:	texlive(siunitx)
+Requires:	texlive(tools)
+Requires:	texlive(translations)
+Requires:	texlive(xcolor)
+Provides:	texlive(%{tl_name}) = %{tl_revision}
 
 %description
-Typeset invoices with automatic VAT and calculation of totals.
-Supports internationalization, invoices are typeset with
-booktabs for readability. Does not support separate projects
-per invoice. Can be used as a replacement for invoice in most
-cases.
+Typeset invoices with automatic VAT and calculation of totals. Supports
+internationalization, invoices are typeset with booktabs for
+readability. Does not support separate projects per invoice. Can be used
+as a replacement for invoice in most cases.
 
-%prep
-%setup -c -a1 -a2
-%autopatch -p1
-
-%build
-
-%install
-rm -rf tlpkg
-mkdir -p %{buildroot}%{_texmfdistdir}
-cp -a * %{buildroot}%{_texmfdistdir}
-
-%files
-%doc %{_texmfdistdir}/source/latex/invoice2
-%{_texmfdistdir}/tex/latex/invoice2
-%doc %{_texmfdistdir}/doc/latex/invoice2
-
-%post -p %{_sbindir}/texlive.post
-
-%postun
-[ "$1" -eq 0 ] && %{_sbindir}/texlive.post
